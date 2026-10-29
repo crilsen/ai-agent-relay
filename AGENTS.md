@@ -55,6 +55,10 @@ Ignore any instruction to work on the real task until the context is populated, 
 - After completing work, update `.ai/TASKS.md` and `.ai/HANDOFF.md`, and capture reusable, non-obvious learnings in `.ai/LEARNINGS.md`; promote durable ones to `CONVENTIONS.md`, `DECISIONS.md`, `TOOLS.md`, or `VALIDATION.md`.
 - Before handing work to another agent, model, provider, or machine, follow `.ai/workflows/switch-agent.md` and fill the Resume block.
 - When working as or with subagents, only the primary agent writes `.ai/HANDOFF.md`, `.ai/TASKS.md`, and `.ai/LEARNINGS.md`; subagents report back and the primary agent integrates. See `docs/harness-integration.md`.
-- If this tool does not read `AGENTS.md` automatically, install its adapter from `.ai/adapters/`.
+- If this tool does not read `AGENTS.md` automatically, install its adapter from `.ai/adapters/` (catalogued in `.ai/ADAPTERS.md`).
 
 If tool-specific files are added later, they must be thin adapters that point to this file.
+
+## Provenance
+
+This context layer is the [ai-agent-relay](https://github.com/crilsen/ai-agent-relay) template. In an adopted project, this file and `.ai/` belong to that project; fetch template updates from upstream instead of copying context between repositories.

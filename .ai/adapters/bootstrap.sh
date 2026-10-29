@@ -7,7 +7,7 @@ tmpl_root=$src_dir/../..
 usage() {
   printf 'usage: %s <project-dir> [tool...]\n' "$0"
   printf 'example: %s ~/my-project claude opencode cursor\n' "$0"
-  printf 'tools: claude cursor kiro cline roo copilot gemini windsurf aider zed qwen (opencode/codex need none)\n'
+  printf 'tools: claude cursor kiro cline roo copilot gemini windsurf aider zed qwen (opencode/codex/crush/junie need none)\n'
   exit 1
 }
 
@@ -32,8 +32,7 @@ else
   for f in "$tmpl_root"/.ai/*; do
     cp -R "$f" "$target/.ai/"
   done
-  rm -rf "$target/.ai/adapters"
-  printf 'created: .ai/\n'
+  printf 'created: .ai/ (adapters kept, so tools can be added later)\n'
 fi
 
 # Minimal project files, only when missing

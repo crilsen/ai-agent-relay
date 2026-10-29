@@ -6,7 +6,9 @@
 
 A portable, Git-versioned context layer for software projects that use coding agents, agentic harnesses, or multiple AI tools over time. Pass the baton between agents, models, providers, and machines without losing context.
 
-Keep project knowledge in the repository instead of a chat history, so any agent can resume work regardless of model, IDE, provider, or computer. Works with Codex, Cursor, Kiro, OpenCode, Claude Code, DeepSeek Harness, Cline, Roo Code, and future tools.
+Keep project knowledge in the repository instead of a chat history, so any agent can resume work regardless of model, IDE, provider, or computer. Works with Codex, Cursor, Kiro, OpenCode, Claude Code, DeepSeek Harness, Cline, Junie, Crush, Roo Code, and future tools.
+
+Upstream repository: [github.com/crilsen/ai-agent-relay](https://github.com/crilsen/ai-agent-relay) — source, releases, issues, and discussions live there.
 
 > **Use at your own risk.** Provided as is, without warranty. You are responsible for reviewing context before an agent acts on it, for the agent's actions, and for all costs including AI provider usage and token consumption. See [SECURITY.md](SECURITY.md).
 
@@ -48,7 +50,7 @@ Projects lose working context when a conversation ends, an agent changes, or wor
 cp -R /path/to/ai-agent-relay/AGENTS.md /path/to/ai-agent-relay/.ai /path/to/your-project/
 ```
 
-1. Optionally install the adapter for your tool (Codex, OpenCode, Cursor, and Kiro read `AGENTS.md` natively and need none).
+1. Optionally install the adapter for your tool. Codex, OpenCode, Cursor, Kiro, Claude Code (v2.1.277+), Cline, Junie, and Crush read `AGENTS.md` natively and need none; adapters exist for tools that do not.
 
 ```bash
 sh /path/to/your-project/.ai/adapters/install.sh . claude opencode

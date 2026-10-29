@@ -1,6 +1,6 @@
 # Adoption Guide
 
-Step-by-step instructions to embed ai-agent-relay into an existing project, plus how to keep it healthy afterward.
+Step-by-step instructions to embed ai-agent-relay into an existing project, plus how to keep it healthy afterward. The template lives at [github.com/crilsen/ai-agent-relay](https://github.com/crilsen/ai-agent-relay); check upstream for updates instead of copying context between projects.
 
 For the concepts and why the files exist, see [README](../README.md) and [design.md](design.md).
 
@@ -24,7 +24,7 @@ Option B, bootstrap (copies files, creates `README.md` and `.gitignore` if missi
 sh .ai/adapters/bootstrap.sh /path/to/your-project claude opencode cursor
 ```
 
-Use the tool list that matches your setup. OpenCode, Codex, and Cursor need no adapter.
+Use the tool list that matches your setup. Codex, OpenCode, Cursor, Kiro, Claude Code (v2.1.277+), Cline, Junie, and Crush need no adapter.
 
 ## Fill the context
 
@@ -79,7 +79,7 @@ git commit -m "Add portable agent context"
 
 ## Troubleshooting
 
-- **Agent ignores the context:** confirm the tool reads `AGENTS.md`, or install the adapter from `.ai/adapters/ADAPTERS.md` and restart the tool.
+- **Agent ignores the context:** confirm the tool reads `AGENTS.md`, or install the adapter listed in [`.ai/ADAPTERS.md`](../.ai/ADAPTERS.md) and restart the tool.
 - **Adoption did not run:** make sure `.ai/` still has placeholders or an empty Resume block; that is what triggers the bootstrap.
 - **Two agents overwrite context:** enforce the concurrency rule: only the primary agent writes `HANDOFF.md`, `TASKS.md`, and `LEARNINGS.md`.
 - **Context has grown noisy:** compact `LEARNINGS.md` and move durable facts to their home files.

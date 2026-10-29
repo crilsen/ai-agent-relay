@@ -7,6 +7,18 @@ All notable changes to this project are documented here. The format is based on 
 ### Added
 
 - Social preview images under `docs/assets/` (1200×630 for GitHub/link cards, plus wide and portrait variants and the SVG source).
+- `.ai/ADAPTERS.md` now records the full native `AGENTS.md` roster (Claude Code, Cline, Junie, Crush, and the [agents.md](https://agents.md) tools) and explains why Amazon Q Developer and Continue get no adapter.
+
+### Changed
+
+- `bootstrap.sh` keeps `.ai/adapters/` in the adopted project, so a tool can be added later with the documented `sh .ai/adapters/install.sh . <tool>` command.
+- The Cline adapter installs to `.cline/rules/agents.md`, the location Cline's docs lead with; `.clinerules/` remains supported by the tool.
+- `install.sh` reports `no adapter needed` for `crush` and `junie`, which read `AGENTS.md` natively.
+
+### Fixed
+
+- `install.sh` no longer overwrites existing files: `CLAUDE.md`, `GEMINI.md`, `.rules`, `.aider.conf.yml`, `.github/copilot-instructions.md`, and rule files are preserved and reported as `kept existing`.
+- `docs/adoption.md` pointed to a non-existent `.ai/adapters/ADAPTERS.md`; the catalogue is `.ai/ADAPTERS.md`.
 
 ## [0.6.1] - 2026-09-21
 

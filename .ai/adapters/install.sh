@@ -10,6 +10,12 @@ if [ "$#" -eq 0 ]; then
 fi
 
 copy_file() {
+  # Never overwrite: adapter targets such as CLAUDE.md, GEMINI.md, .rules, or
+  # .aider.conf.yml often already exist. Merge by hand instead.
+  if [ -e "$1" ]; then
+    printf 'kept existing: %s (merge the adapter manually)\n' "$1"
+    return 0
+  fi
   mkdir -p "$(dirname -- "$1")"
   cp "$2" "$1"
 }
@@ -19,7 +25,7 @@ for tool in "$@"; do
     claude)   copy_file "$target/CLAUDE.md" "$src_dir/claude.md" ;;
     cursor)   copy_file "$target/.cursor/rules/agents.mdc" "$src_dir/cursor.mdc" ;;
     kiro)     copy_file "$target/.kiro/steering/agents.md" "$src_dir/kiro.md" ;;
-    cline)    copy_file "$target/.clinerules/agents.md" "$src_dir/cline.md" ;;
+    cline)    copy_file "$target/.cline/rules/agents.md" "$src_dir/cline.md" ;;
     roo)      copy_file "$target/.roo/rules/00-agents.md" "$src_dir/roo.md" ;;
     copilot)  copy_file "$target/.github/copilot-instructions.md" "$src_dir/copilot.md" ;;
     gemini)   copy_file "$target/GEMINI.md" "$src_dir/gemini.md" ;;
@@ -29,7 +35,7 @@ for tool in "$@"; do
     qwen)     copy_file "$target/QWEN.md" "$src_dir/qwen.md" ;;
     cursor-guardrails) copy_file "$target/.cursor/rules/guardrails.mdc" "$src_dir/cursor-guardrails.mdc" ;;
     kiro-guardrails)   copy_file "$target/.kiro/steering/guardrails.md" "$src_dir/kiro-guardrails.md" ;;
-    opencode|codex)
+    opencode|codex|crush|junie)
       printf 'no adapter needed: %s reads AGENTS.md natively\n' "$tool"
       continue ;;
     *) printf 'unknown tool: %s\n' "$tool" >&2; exit 1 ;;

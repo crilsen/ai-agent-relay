@@ -42,14 +42,19 @@ test-bootstrap:
 	@test -f "$(TESTDIR)/bootstrap/proj/README.md"
 	@test -f "$(TESTDIR)/bootstrap/proj/.gitignore"
 	@test -d "$(TESTDIR)/bootstrap/proj/.ai"
+	@test -f "$(TESTDIR)/bootstrap/proj/.ai/adapters/install.sh"
 	@test -f "$(TESTDIR)/bootstrap/proj/CLAUDE.md"
 	@echo "bootstrap: ok"
 
 test-install:
 	@sh -n .ai/adapters/install.sh
 	@mkdir -p "$(TESTDIR)/install/proj"
-	@sh .ai/adapters/install.sh "$(TESTDIR)/install/proj" gemini codex
+	@sh .ai/adapters/install.sh "$(TESTDIR)/install/proj" gemini codex cline crush
 	@test -f "$(TESTDIR)/install/proj/GEMINI.md"
+	@test -f "$(TESTDIR)/install/proj/.cline/rules/agents.md"
+	@printf 'sentinel\n' > "$(TESTDIR)/install/proj/GEMINI.md"
+	@sh .ai/adapters/install.sh "$(TESTDIR)/install/proj" gemini
+	@grep -q sentinel "$(TESTDIR)/install/proj/GEMINI.md"
 	@echo "install: ok"
 
 clean:
