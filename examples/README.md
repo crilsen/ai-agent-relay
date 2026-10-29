@@ -1,14 +1,18 @@
 # Examples
 
-Sample adopted contexts, so you can see what `.ai/` looks like after adoption instead of only the empty template.
+Sample adopted contexts, so you can see what a finished `.ai/` looks like instead of only the empty template.
 
 ## `hello-service`
 
 A tiny fictional service used to show a filled-in context:
 
-- `examples/hello-service/PROJECT.md` — project overview
-- `examples/hello-service/ARCHITECTURE.md` — observed architecture
-- `examples/hello-service/CONVENTIONS.md` — real conventions
-- `examples/hello-service/HANDOFF.md` — a populated Resume block
+- `AGENTS.md` — the router an agent reads first
+- `.ai/PROJECT.md`, `.ai/ARCHITECTURE.md`, `.ai/CONVENTIONS.md` — observed facts
+- `.ai/DECISIONS.md` — one accepted TDR in simple mode
+- `.ai/TASKS.md`, `.ai/HANDOFF.md` — work in progress and a populated Resume block
+- `.ai/LEARNINGS.md` — one captured learning, not yet promoted
+- `.ai/TOOLS.md`, `.ai/VALIDATION.md` — allowed commands and completion checks
+
+The template's `GUARDRAILS.md`, `LIMITS.md`, `ADAPTERS.md`, and workflows are omitted here to keep the example small; adopters copy them from the template.
 
 These files are illustrative, not a runnable application. Copy the structure, not the content.

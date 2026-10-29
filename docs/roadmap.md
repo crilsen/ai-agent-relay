@@ -1,20 +1,20 @@
 # Roadmap
 
-Maintenance backlog for the template itself. The approved items are split into **two waves**: wave 1 makes the repository catch its own breakage, wave 2 changes behavior and ships a release. Items keep stable IDs so they can be cited from commits and handoffs.
+Maintenance backlog for the template itself. The approved items were split into **two waves**, both shipped in `v0.7.0`; only R-8 remains open. Items keep stable IDs so they can be cited from commits and handoffs.
 
-Each item is independent and should ship as its own focused change, with `make lint` and `make test` passing.
+Each item is independent and ships as its own focused change, with `make lint` and `make test` passing.
 
 Status: `planned`, `in progress`, `done`, `needs decision`.
 
 | ID | Item | Wave | Effort | Status |
 | --- | --- | --- | --- | --- |
-| R-1 | Link checking in CI | 1 | low | planned |
-| R-3 | Gemini CLI adapter via `.gemini/settings.json` | 1 | low | planned |
-| R-4 | Verification date per tool in `.ai/ADAPTERS.md` | 1 | low | planned |
-| R-6 | Pin CI actions by commit SHA | 1 | low | planned |
-| R-2 | Harder guardrail patterns and a Kiro hook | 2 | medium | planned |
-| R-5 | Complete `examples/hello-service` | 2 | medium | planned |
-| R-7 | Release `v0.7.0` | 2 | low | needs decision |
+| R-1 | Link checking in CI | 1 | low | done |
+| R-3 | Gemini CLI adapter via `.gemini/settings.json` | 1 | low | done |
+| R-4 | Verification date per tool in `.ai/ADAPTERS.md` | 1 | low | done |
+| R-6 | Pin CI actions by commit SHA | 1 | low | done |
+| R-2 | Harder guardrail patterns and a Kiro hook | 2 | medium | done |
+| R-5 | Complete `examples/hello-service` | 2 | medium | done |
+| R-7 | Release `v0.7.0` | 2 | low | done |
 | R-8 | Translate the docs | 2 | medium | needs decision |
 
 ## Wave 1 — Hygiene and additive adapters

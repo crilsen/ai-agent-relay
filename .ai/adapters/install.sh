@@ -29,6 +29,7 @@ for tool in "$@"; do
     roo)      copy_file "$target/.roo/rules/00-agents.md" "$src_dir/roo.md" ;;
     copilot)  copy_file "$target/.github/copilot-instructions.md" "$src_dir/copilot.md" ;;
     gemini)   copy_file "$target/GEMINI.md" "$src_dir/gemini.md" ;;
+    gemini-settings) copy_file "$target/.gemini/settings.json" "$src_dir/gemini-settings.json" ;;
     windsurf) copy_file "$target/.windsurf/rules/agents.md" "$src_dir/windsurf.md" ;;
     aider)    copy_file "$target/.aider.conf.yml" "$src_dir/aider.yml" ;;
     zed)      copy_file "$target/.rules" "$src_dir/zed.md" ;;

@@ -23,8 +23,15 @@ EOF
 case "$input" in
   *'"command"'*)
     case "$input" in
-      *"rm -rf"*|*"rm -fr"*|*"git push --force"*|*"git push -f"*|*"terraform apply"*|*"terraform destroy"*|*"tofu apply"*|*"tofu destroy"*|*"kubectl delete"*|*"kubectl apply"*)
+      *"rm -rf"*|*"rm -fr"*|*"git push --force"*|*"git push -f"*|\
+      *"git reset --hard"*|*"git clean -f"*|*"git clean -x"*|*"git clean -d"*|\
+      *"terraform apply"*|*"terraform destroy"*|*"tofu apply"*|*"tofu destroy"*|\
+      *"kubectl delete"*|*"kubectl apply"*|*"docker system prune"*|*"docker volume rm"*|\
+      *"DROP TABLE"*|*"DROP DATABASE"*|*"TRUNCATE TABLE"*)
         deny "Blocked by ai-agent-relay guardrails: destructive or mutating command. Request explicit authorization."
+        ;;
+      *"cat .env"*|*"cat ~/.aws/credentials"*|*"cat ~/.ssh/id_"*)
+        deny "Blocked by ai-agent-relay guardrails: reading secrets or credentials. Request explicit authorization."
         ;;
     esac
     ;;

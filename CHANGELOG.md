@@ -4,16 +4,26 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
+_None yet._
+
+## [0.7.0] - 2026-10-29
+
 ### Added
 
 - Social preview images under `docs/assets/` (1200×630 for GitHub/link cards, plus wide and portrait variants and the SVG source).
 - `.ai/ADAPTERS.md` now records the full native `AGENTS.md` roster (Claude Code, Cline, Junie, Crush, DeepSeek Harness, and the [agents.md](https://agents.md) tools) and explains why Amazon Q Developer and Continue get no adapter.
 - `docs/prd/` and `docs/decisions/` exist with a short README each, matching the layout the README already documented; both remain empty until a PRD or a scale-mode decision record is written.
-- CI gained a `test` job that runs `make test`, so the bootstrap and installer scripts are verified on every push and pull request.
-- `docs/roadmap.md` records the approved maintenance backlog (link checking, guardrail hardening, Gemini settings adapter, example completion, release) so it survives across sessions.
+- `docs/roadmap.md` records the approved maintenance backlog, split into two waves so it survives across sessions.
+- CI gained a `links` job (lychee) and a `test` job (`make test`), plus `.github/dependabot.yml`, so broken links and script regressions fail the build.
+- `gemini-settings` adapter writes `.gemini/settings.json` with `context.fileName`, the configuration Gemini CLI documents for reading `AGENTS.md`.
+- Kiro hooks in `.ai/adapters/hooks/kiro/`: `SessionStart` routes to `AGENTS.md`, `Stop` triggers the checkpoint, using the Kiro 1.0 `version: "v1"` schema.
+- `examples/hello-service` now ships `AGENTS.md` plus a complete `.ai/` (`DECISIONS` with TDR-001, `TASKS`, `LEARNINGS`, `TOOLS`, `VALIDATION`), so the example can be copied as a finished context.
 
 ### Changed
 
+- CI actions are pinned by commit SHA, with Dependabot keeping them current.
+- `.ai/ADAPTERS.md` records a verification date per tool (2026-09-20 for the original four, 2026-10-29 for the rest) and asks for re-verification on each release.
+- Guardrail patterns now also block `git reset --hard`, `git clean -f/-x/-d`, `docker system prune`, `docker volume rm`, `DROP TABLE`, `DROP DATABASE`, `TRUNCATE TABLE`, and secret reads such as `cat .env` or `cat ~/.aws/credentials`; the Claude Code and OpenCode implementations stay in parity.
 - `make test` now checks that a second bootstrap run keeps the existing `AGENTS.md` instead of overwriting it.
 - `bootstrap.sh` keeps `.ai/adapters/` in the adopted project, so a tool can be added later with the documented `sh .ai/adapters/install.sh . <tool>` command.
 - The Cline adapter installs to `.cline/rules/agents.md`, the location Cline's docs lead with; `.clinerules/` remains supported by the tool.
@@ -110,7 +120,8 @@ All notable changes to this project are documented here. The format is based on 
 - `docs/design.md` describing why the template is built this way.
 - MIT license.
 
-[Unreleased]: https://github.com/crilsen/ai-agent-relay/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/crilsen/ai-agent-relay/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/crilsen/ai-agent-relay/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/crilsen/ai-agent-relay/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/crilsen/ai-agent-relay/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/crilsen/ai-agent-relay/compare/v0.4.1...v0.5.0

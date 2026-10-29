@@ -112,7 +112,7 @@ LICENSE
 Makefile                     # make lint / make test
 README.md
 SECURITY.md
-examples/                    # Sample adopted context (hello-service)
+examples/                    # Sample adopted context (AGENTS.md + .ai/)
 docs/
 ├── design.md                # Why this template is built this way
 ├── adoption.md              # Step-by-step adoption guide

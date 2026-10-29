@@ -33,7 +33,7 @@ Tool-specific examples (verified against each tool's documentation):
 
 - **OpenCode** — plugins are JavaScript/TypeScript loaded from `.opencode/plugins/` or `~/.config/opencode/plugins/`, not shell hooks. `.ai/adapters/hooks/opencode/relay.js` subscribes to `session.idle` and logs the checkpoint reminder; `guardrails.js` blocks destructive commands and secret access via `tool.execute.before`. Install with `.ai/adapters/hooks/opencode/install.sh`.
 - **Claude Code** — hooks are shell commands declared in `.claude/settings.json`. Events `SessionStart`, `Stop` (per turn), and `SessionEnd` drive the checkpoint; `PreToolUse` runs `guardrails.sh` to deny destructive commands and secret edits. `install.sh` writes `.claude/settings.json` only when missing.
-- **Kiro** — has its own hooks system (`/docs/hooks/`). Hooks can trigger the checkpoint and handoff; steering files provide the policy. Kiro also reads `AGENTS.md` natively.
+- **Kiro** — hooks live in `.kiro/hooks/<name>.json` with `version: "v1"`, a `trigger` (`SessionStart`, `Stop`, `PreToolUse`, `PostFileSave`, ...), and an `action` (`agent` injects a prompt; `command` runs a shell command with session JSON on stdin). `.ai/adapters/hooks/kiro/hooks.json` routes `SessionStart` to `AGENTS.md` and reminds about the checkpoint on `Stop`; guardrails remain in `.kiro/steering/guardrails.md`. Kiro 1.0 and CLI V3 use this schema; the pre-1.0 format used `when`/`then` in `.kiro.hook` files. Kiro also reads `AGENTS.md` natively.
 
 Adapt event names and paths to your tool version; hook formats change and are verified against current docs at the time of writing.
 
@@ -43,7 +43,7 @@ Adapt event names and paths to your tool version; hook formats change and are ve
 
 - **Advisory:** `AGENTS.md`, `.ai/GUARDRAILS.md`, `.ai/TOOLS.md`.
 - **Scoped by path:** Cursor `.cursor/rules/guardrails.mdc` (`globs`), Kiro `.kiro/steering/guardrails.md` (`fileMatch`).
-- **Enforced:** Claude Code `PreToolUse` (`guardrails.sh`), OpenCode `tool.execute.before` (`guardrails.js`).
+- **Enforced:** Claude Code `PreToolUse` (`guardrails.sh`), OpenCode `tool.execute.before` (`guardrails.js`), and Kiro `PreToolUse` hooks when you add a `command` action (verify exit-code semantics for your Kiro version).
 
 Prefer enforcement for irreversible actions.
 

@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "relay-session-start",
+      "description": "Point the agent at AGENTS.md and the handoff on session start.",
+      "enabled": true,
+      "trigger": "SessionStart",
+      "action": {
+        "type": "agent",
+        "prompt": "Read AGENTS.md and .ai/HANDOFF.md. If .ai/ still has placeholders, run the plug-and-play bootstrap from AGENTS.md before doing anything else."
+      }
+    },
+    {
+      "name": "relay-checkpoint",
+      "description": "Remind the agent to run the checkpoint when it stops.",
+      "enabled": true,
+      "trigger": "Stop",
+      "action": {
+        "type": "agent",
+        "prompt": "[ai-agent-relay] turn finished: if you reached a meaningful checkpoint, run .ai/workflows/checkpoint.md (commit or list WIP, update the Resume block in .ai/HANDOFF.md, honor .ai/LIMITS.md)."
+      }
+    }
+  ]
+}

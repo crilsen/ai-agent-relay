@@ -8,15 +8,17 @@ These adapters ship with the [ai-agent-relay](https://github.com/crilsen/ai-agen
 
 These tools read `AGENTS.md` on their own and need no routing adapter:
 
-- **Codex**, **OpenCode**, **Cursor**, **Kiro** — verified against each tool's documentation at the time of writing.
-- **Claude Code** — from v2.1.277 (2026-09-18) it reads `AGENTS.md` when the project has no `CLAUDE.md`; v2.1.281 extended that to Bedrock, Vertex AI, Foundry, and LLM gateways. A `CLAUDE.md` still takes precedence, so the Claude Code adapter below remains useful when the file must be read explicitly.
-- **Cline** — reads `AGENTS.md` and `~/.agents/AGENTS.md`, in addition to `.cline/rules/`.
-- **Junie (JetBrains)** — reads `AGENTS.md` at the project root; `.junie/AGENTS.md` takes precedence.
-- **Crush (Charm)** — reads `AGENTS.md`, `CRUSH.md`, `CLAUDE.md`, and `GEMINI.md`.
-- **DeepSeek Harness (`dsh`)** — its own repository points agents at a root `AGENTS.md`, which is the convention the harness targets. Confirm the loading behavior in your installed version before relying on it.
-- **GitHub Copilot coding agent** — supports `AGENTS.md`, including nested files. Copilot Chat in the IDE still reads `.github/copilot-instructions.md`, so keep the adapter for that surface.
-- **Amp, Augment Code, Devin, Factory, goose, Jules, Kilo Code, Ona, Roo Code, UiPath, Warp, Windsurf, Zed** — listed as `AGENTS.md`-compatible on [agents.md](https://agents.md).
-- **Gemini CLI** — reads `GEMINI.md` by default; point it at `AGENTS.md` with `context.fileName` in `.gemini/settings.json`, or keep the `GEMINI.md` adapter below.
+- **Codex**, **OpenCode**, **Cursor**, **Kiro** — verified against each tool's documentation on 2026-09-20.
+- **Claude Code** (verified 2026-10-29) — from v2.1.277 (2026-09-18) it reads `AGENTS.md` when the project has no `CLAUDE.md`; v2.1.281 extended that to Bedrock, Vertex AI, Foundry, and LLM gateways. A `CLAUDE.md` still takes precedence, so the Claude Code adapter below remains useful when the file must be read explicitly.
+- **Cline** (verified 2026-10-29) — reads `AGENTS.md` and `~/.agents/AGENTS.md`, in addition to `.cline/rules/`.
+- **Junie (JetBrains)** (verified 2026-10-29) — reads `AGENTS.md` at the project root; `.junie/AGENTS.md` takes precedence.
+- **Crush (Charm)** (verified 2026-10-29) — reads `AGENTS.md`, `CRUSH.md`, `CLAUDE.md`, and `GEMINI.md`.
+- **DeepSeek Harness (`dsh`)** (verified 2026-10-29) — its own repository points agents at a root `AGENTS.md`, which is the convention the harness targets. Confirm the loading behavior in your installed version before relying on it.
+- **GitHub Copilot coding agent** (verified 2026-10-29) — supports `AGENTS.md`, including nested files. Copilot Chat in the IDE still reads `.github/copilot-instructions.md`, so keep the adapter for that surface.
+- **Amp, Augment Code, Devin, Factory, goose, Jules, Kilo Code, Ona, Roo Code, UiPath, Warp, Windsurf, Zed** — listed as `AGENTS.md`-compatible on [agents.md](https://agents.md) (checked 2026-10-29).
+- **Gemini CLI** (verified 2026-10-29) — reads `GEMINI.md` by default; point it at `AGENTS.md` with `context.fileName` in `.gemini/settings.json` (the `gemini-settings` adapter below), or keep the `GEMINI.md` adapter.
+
+Re-verify these claims on each release; tool support changes without notice.
 
 Passing `opencode`, `codex`, `crush`, or `junie` to the installer is harmless; it reports that no file is needed.
 
@@ -34,7 +36,7 @@ With no tool names it installs all supported adapters into the target directory 
 sh .ai/adapters/install.sh . claude cursor kiro
 ```
 
-Supported: `claude`, `cursor`, `kiro`, `cline`, `roo`, `copilot`, `gemini`, `windsurf`, `aider`, `zed`, `qwen`. `opencode`, `codex`, `crush`, and `junie` need no file.
+Supported: `claude`, `cursor`, `kiro`, `cline`, `roo`, `copilot`, `gemini`, `gemini-settings`, `windsurf`, `aider`, `zed`, `qwen`. `opencode`, `codex`, `crush`, and `junie` need no file.
 
 For native readers, the Claude Code, Cursor, Kiro, Cline, Zed, and Windsurf adapters are **optional routing aids**: useful when you prefer a rules file over relying on `AGENTS.md` discovery, or when another instruction file already exists and must import the context.
 
@@ -70,6 +72,7 @@ Then open an agent in the project and say only `Read AGENTS.md`. The agent detec
 | Roo Code | `.roo/rules/00-agents.md` | `.ai/adapters/roo.md` |
 | GitHub Copilot | `.github/copilot-instructions.md` | `.ai/adapters/copilot.md` |
 | Gemini CLI | `GEMINI.md` | `.ai/adapters/gemini.md` |
+| Gemini CLI (settings) | `.gemini/settings.json` | `.ai/adapters/gemini-settings.json` |
 | Windsurf | `.windsurf/rules/agents.md` | `.ai/adapters/windsurf.md` |
 | Aider | `.aider.conf.yml` | `.ai/adapters/aider.yml` |
 | Zed | `.rules` | `.ai/adapters/zed.md` |
@@ -88,7 +91,7 @@ Then open an agent in the project and say only `Read AGENTS.md`. The agent detec
 ## Notes
 
 - Claude Code: a `CLAUDE.md` containing `@AGENTS.md` wins over the `AGENTS.md` fallback and keeps working on Claude Code versions or providers where the fallback is unavailable.
-- Gemini CLI: the upstream recommendation is `{"context": {"fileName": ["AGENTS.md", "GEMINI.md"]}}` in `.gemini/settings.json`; the `GEMINI.md` adapter achieves the same routing without touching settings.
+- Gemini CLI: the upstream recommendation is `{"context": {"fileName": ["AGENTS.md", "GEMINI.md"]}}` in `.gemini/settings.json`; install it with `gemini-settings`, or use the `GEMINI.md` adapter for projects that prefer no settings file. Both follow the no-overwrite rule, so an existing `settings.json` must be merged by hand.
 - Cursor: project rules use `.cursor/rules/*.mdc` with `description`/`globs`/`alwaysApply`; `AGENTS.md` is also read from the root and subdirectories.
 - Kiro: steering lives in `.kiro/steering/` with inclusion modes (`always`, `fileMatch`, `manual`, `auto`); `AGENTS.md` is also read from the root, `~/.kiro/steering/`, and subdirectories. Kiro CLI does not support inclusion modes and loads all steering files.
 - Do not add adapters for tools with no living user base: Amazon Q Developer was replaced by Kiro (end of support 2027-04-30), and Continue stopped development in June 2026. Kiro reads `AGENTS.md` natively, so it needs no replacement adapter.

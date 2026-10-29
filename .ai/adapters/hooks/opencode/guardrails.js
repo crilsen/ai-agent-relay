@@ -13,10 +13,16 @@
 const DESTRUCTIVE = [
   /\brm\s+-rf\b/,
   /\bgit\s+push\s+(-f|--force)\b/,
+  /\bgit\s+reset\s+--hard\b/,
+  /\bgit\s+clean\s+-[a-z]*[fxd]/,
   /\bterraform\s+(apply|destroy)\b/,
   /\btofu\s+(apply|destroy)\b/,
   /\bkubectl\s+(apply|delete)\b/,
+  /\bdocker\s+(system\s+prune|volume\s+rm)\b/,
+  /\b(DROP\s+(TABLE|DATABASE)|TRUNCATE\s+TABLE)\b/i,
 ]
+
+const SECRET_READ = /\b(cat|less|more|head|tail)\s+.*(\.env|\.aws\/credentials|\.ssh\/id_)/
 
 const SECRET_PATH = /(^|\/)(\.env(\..*)?|secrets?|credentials?)(\/|$|\.)/i
 
@@ -31,6 +37,11 @@ export const GuardrailsPlugin = async () => {
               "Blocked by ai-agent-relay guardrails: destructive or mutating command. See .ai/GUARDRAILS.md and request explicit authorization.",
             )
           }
+        }
+        if (SECRET_READ.test(cmd)) {
+          throw new Error(
+            "Blocked by ai-agent-relay guardrails: reading secrets or credentials. See .ai/GUARDRAILS.md and request explicit authorization.",
+          )
         }
       }
       if (input.tool === "read" || input.tool === "edit" || input.tool === "write") {

@@ -59,6 +59,10 @@ test-install:
 	@printf 'sentinel\n' > "$(TESTDIR)/install/proj/GEMINI.md"
 	@sh .ai/adapters/install.sh "$(TESTDIR)/install/proj" gemini
 	@grep -q sentinel "$(TESTDIR)/install/proj/GEMINI.md"
+	@sh .ai/adapters/install.sh "$(TESTDIR)/install/proj" gemini-settings
+	@test -f "$(TESTDIR)/install/proj/.gemini/settings.json"
+	@sh .ai/adapters/hooks/kiro/install.sh "$(TESTDIR)/install/proj"
+	@test -f "$(TESTDIR)/install/proj/.kiro/hooks/ai-agent-relay.json"
 	@echo "install: ok"
 
 clean:
