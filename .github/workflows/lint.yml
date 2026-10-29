@@ -26,3 +26,10 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         with:
           scandir: .ai/adapters
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: bootstrap and installer tests
+        run: make test

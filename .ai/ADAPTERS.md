@@ -13,6 +13,7 @@ These tools read `AGENTS.md` on their own and need no routing adapter:
 - **Cline** — reads `AGENTS.md` and `~/.agents/AGENTS.md`, in addition to `.cline/rules/`.
 - **Junie (JetBrains)** — reads `AGENTS.md` at the project root; `.junie/AGENTS.md` takes precedence.
 - **Crush (Charm)** — reads `AGENTS.md`, `CRUSH.md`, `CLAUDE.md`, and `GEMINI.md`.
+- **DeepSeek Harness (`dsh`)** — its own repository points agents at a root `AGENTS.md`, which is the convention the harness targets. Confirm the loading behavior in your installed version before relying on it.
 - **GitHub Copilot coding agent** — supports `AGENTS.md`, including nested files. Copilot Chat in the IDE still reads `.github/copilot-instructions.md`, so keep the adapter for that surface.
 - **Amp, Augment Code, Devin, Factory, goose, Jules, Kilo Code, Ona, Roo Code, UiPath, Warp, Windsurf, Zed** — listed as `AGENTS.md`-compatible on [agents.md](https://agents.md).
 - **Gemini CLI** — reads `GEMINI.md` by default; point it at `AGENTS.md` with `context.fileName` in `.gemini/settings.json`, or keep the `GEMINI.md` adapter below.

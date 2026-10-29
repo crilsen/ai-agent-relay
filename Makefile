@@ -44,6 +44,10 @@ test-bootstrap:
 	@test -d "$(TESTDIR)/bootstrap/proj/.ai"
 	@test -f "$(TESTDIR)/bootstrap/proj/.ai/adapters/install.sh"
 	@test -f "$(TESTDIR)/bootstrap/proj/CLAUDE.md"
+	@printf 'custom context\n' >> "$(TESTDIR)/bootstrap/proj/AGENTS.md"
+	@sh .ai/adapters/bootstrap.sh "$(TESTDIR)/bootstrap/proj" claude
+	@grep -q 'custom context' "$(TESTDIR)/bootstrap/proj/AGENTS.md"
+	@test -f "$(TESTDIR)/bootstrap/proj/CLAUDE.md"
 	@echo "bootstrap: ok"
 
 test-install:

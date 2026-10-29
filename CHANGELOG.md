@@ -7,10 +7,13 @@ All notable changes to this project are documented here. The format is based on 
 ### Added
 
 - Social preview images under `docs/assets/` (1200×630 for GitHub/link cards, plus wide and portrait variants and the SVG source).
-- `.ai/ADAPTERS.md` now records the full native `AGENTS.md` roster (Claude Code, Cline, Junie, Crush, and the [agents.md](https://agents.md) tools) and explains why Amazon Q Developer and Continue get no adapter.
+- `.ai/ADAPTERS.md` now records the full native `AGENTS.md` roster (Claude Code, Cline, Junie, Crush, DeepSeek Harness, and the [agents.md](https://agents.md) tools) and explains why Amazon Q Developer and Continue get no adapter.
+- `docs/prd/` and `docs/decisions/` exist with a short README each, matching the layout the README already documented; both remain empty until a PRD or a scale-mode decision record is written.
+- CI gained a `test` job that runs `make test`, so the bootstrap and installer scripts are verified on every push and pull request.
 
 ### Changed
 
+- `make test` now checks that a second bootstrap run keeps the existing `AGENTS.md` instead of overwriting it.
 - `bootstrap.sh` keeps `.ai/adapters/` in the adopted project, so a tool can be added later with the documented `sh .ai/adapters/install.sh . <tool>` command.
 - The Cline adapter installs to `.cline/rules/agents.md`, the location Cline's docs lead with; `.clinerules/` remains supported by the tool.
 - `install.sh` reports `no adapter needed` for `crush` and `junie`, which read `AGENTS.md` natively.
