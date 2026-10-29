@@ -10,6 +10,7 @@ All notable changes to this project are documented here. The format is based on 
 - `.ai/ADAPTERS.md` now records the full native `AGENTS.md` roster (Claude Code, Cline, Junie, Crush, DeepSeek Harness, and the [agents.md](https://agents.md) tools) and explains why Amazon Q Developer and Continue get no adapter.
 - `docs/prd/` and `docs/decisions/` exist with a short README each, matching the layout the README already documented; both remain empty until a PRD or a scale-mode decision record is written.
 - CI gained a `test` job that runs `make test`, so the bootstrap and installer scripts are verified on every push and pull request.
+- `docs/roadmap.md` records the approved maintenance backlog (link checking, guardrail hardening, Gemini settings adapter, example completion, release) so it survives across sessions.
 
 ### Changed
 
